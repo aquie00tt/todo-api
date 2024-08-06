@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - '5001:5001'
+    env_file:
+      - .env.production
+    depends_on:
+      - mongo-db
+    volumes:
+      - .:/usr/src/app
+    command: npm run start
+  mongo-db:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
